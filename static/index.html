@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Automatic Annotation System</title>
+</head>
+
+<link rel="stylesheet" type="text/css" href="Huploadify.css"/>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.Huploadify.js"></script>
+	
+<style type="text/css">
+         body {
+         	background-image: url(./img/back.jpg);
+         	background-size:cover;
+         }
+</style>
+
+<body>
+<div id="title" style="text-align: center">
+<font style="font-family:verdana;color:white;text-align:center " size=15>Automatic Amotation System ♪♬</font>
+</div>
+<hr size="1px" noshade=true />
+<div style="display: flex;justify-content: center;align-items: center;">
+<div id="upload" style="text-align: center;"></div>
+<button id="btn_clear" style="width:150px;height:35px;text-align:cnter;color:white;font-size:14px;border-radius: 2em;border-width:0px;background-color:#707070;font-family:sans-serif;display:inline-block;margin:12px;">清除图片</button>
+
+<button id="btn_get_img" style="width:150px;height:35px;text-align:cnter;color:white;font-size:14px;border-radius: 2em;border-width:0px;background-color:#707070;font-family:sans-serif;display:inline-block;margin:12px;">获取图片列表</button>
+</div>
+<div id="main">
+
+	<div id="mosaic-slideshow">
+        <div class="arrow left"></div>
+        <div class="arrow right"></div>
+    </div>
+
+</div>
+<div id="power" style="text-align:center">
+<font style="color:white;font-size:20px;text-align:center"></font>
+</div>	
+	<script type="text/javascript">
+	convert_url='http://localhost:5000/convert'
+	clear_url='http://localhost:5000/clear'
+	get_img_url='http://localhost:5000/get_img'
+
+	//图片超链接前缀
+	img_url_preious="/test/generated/"
+	var xhr=new XMLHttpRequest();
+	//这部分是负责上传图片
+	$(function(){
+		$('#upload').Huploadify({
+			auto:true,
+			fileTypeExts:'*.jpg;*.png;*.bmp',
+			multi:true,
+			formData:{key:123456,key2:'vvvv'},
+			fileSizeLimit:9999,
+			showUploadedPercent:false,//是否实时显示上传的百分比，如20%
+			showUploadedSize:false,
+			removeTimeout:0,
+			fileObjName:'files',
+			uploader:convert_url,
+			onUploadStart:function(){
+				alert('开始上传');
+				},
+			onInit:function(){
+				//alert('初始化');
+				},
+			onUploadComplete:function(){
+				alert("上传成功...");
+				},
+			onDelete:function(file){
+				console.log('删除的文件：'+file);
+				console.log(file);
+				}
+		});
+	});
+	//这部分是负责清除服务器上的图片
+	$("#btn_clear").click(function()
+	{
+		alert("clear");
+		var formData=new FormData();
+		formData.append("command","clear");
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){      
+        		var b = xhr.responseText;      
+        		if(b){      
+            		alert("清除成功！");      
+        		}else{      
+            		alert("清除失败！");      
+        		}             
+   	 		}    
+		};
+		xhr.open("POST",clear_url,true);
+		xhr.send(formData);
+	});
+
+	//这部分用来获取图片列表,并且把它放到slides里面
+	$("#btn_get_img").click(function()
+	{
+		alert("get img list");
+		var formData=new FormData();
+		formData.append("command","get_img");
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){      
+        		var b = xhr.responseText.split(";");      
+        		if(b){
+        			console.log(b);
+        			slides=new Array();
+        			var i=0;
+        			//slides.push("./img/none.jpg")
+        			while(i<b.length)
+        			{
+        				b[i]=b[i].replace('\"','');
+        				slides.push(img_url_preious+b[i]);
+        				console.log(b[i]);
+        				i=i+1;
+        			}
+        			console.log(slides.length);
+            		alert("获取成功！");      
+        		}else{      
+            		alert("获取失败！");      
+        		}             
+   	 		}    
+		};
+		xhr.open("POST",get_img_url,true);
+		xhr.send(formData);
+	});
+</script>
+
+</body>
+</html>
