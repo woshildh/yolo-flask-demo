@@ -9,4 +9,4 @@ Algorithm is from https://github.com/hizhangp/yolo_tensorflow.git
 
 2、python3 server.py
 
-3、
+3、go to chrome,open http://localhost:5000/
