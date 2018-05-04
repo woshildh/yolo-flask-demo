@@ -60,12 +60,13 @@ def convert_image():
 		global count
 		image_storage=request.files['files'].read()
 		
-		original_img_name="./test/original/previous"+str(count)+".jpg"
+		time_flag=str(time.time()).split(".")[0]
+		original_img_name="./test/original/"+time_flag+".jpg"
 		with open(original_img_name,'wb') as file:
 			file.write(image_storage)
 		#成功上传之后,count自增
 	
-		generated_img_name="./test/generated/"+str(time.time()).split(".")[0]+".jpg"
+		generated_img_name="./test/generated/"+time_flag+".jpg"
 		detector.image_detector(original_img_name,generated_img_name)
 		count+=1
 		print("成功转换一张图片...")
@@ -126,6 +127,17 @@ def send_image(file_name):
 	#res.headers['Access-Control-Allow-Origin'] = "*"
 	return send_file("./test/generated/"+file_name)
 
+@app.route("/test/original/<file_name>")
+def send_original_image(file_name):
+	'''
+	根据超链接请求图片时，把图片返回
+	'''
+	#res=make_response(send_file("./test/generated/"+file_name))
+	#res.headers['Access-Control-Allow-Origin'] = "*"
+	return send_file("./test/original/"+file_name)
+
+
 if __name__=="__main__":
 	app.run(host=SERVER_HOST,port=SERVER_PORT,debug=True)
+
 
