@@ -12,7 +12,7 @@ body{
 }
 
 
-#mosaic-slideshow{
+#mosaic-huadongshow{
 	/* The slideshow container div */
 	height:500px;
 	margin:0 auto;
@@ -20,7 +20,7 @@ body{
 	width:670px;
 }
 
-.mosaic-slide{
+.mosaic-huadong{
 	/* This class is shared between all the slides */
 	left:80px;
 	position:absolute;
@@ -34,7 +34,7 @@ body{
 	border-radius:20px;
 }
 
-.tile{
+.tile2{
 	/* The individual tiles */
 	height:60px;
 	width:60px;
@@ -44,7 +44,7 @@ body{
 	background-color:#555;
 }
 
-.arrow{
+.jiantou{
 	/* The prev/next arrows */
 	width:35px;
 	height:70px;
@@ -55,25 +55,25 @@ body{
 	margin-top:-35px;
 }
 
-.arrow.left{
+.jiantou.zuo{
 	left:15px;
 	background-position:center top;
 }
 
-.arrow.left:hover{
+.jiantou.zuo:hover{
 	background-position:center -70px;
 }
 
-.arrow.right{
+.jiantou.you{
 	right:15px;
 	background-position:center -140px;
 }
 
-.arrow.right:hover{
+.jiantou.you:hover{
 	background-position:center -210px;
 }
 
-.clear{
+.clear2{
 	/* This class clears the floats */
 	clear:both;
 }
@@ -81,7 +81,7 @@ body{
 
 /* The styles below are only necessary for the styling of the demo page: */
 
-#main{
+#important{
 	position:relative;
 	margin:0 auto;
 	width:960px;

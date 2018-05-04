@@ -7,8 +7,11 @@
 
 <link rel="stylesheet" type="text/css" href="Huploadify.css"/>
 <link rel="stylesheet" type="text/css" href="styles.css" />
+<link rel="stylesheet" type="text/css" href="substyles.css" />
+
 <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/subscript.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.Huploadify.js"></script>
 	
@@ -31,13 +34,19 @@
 <button id="btn_get_img" style="width:150px;height:35px;text-align:cnter;color:white;font-size:14px;border-radius: 2em;border-width:0px;background-color:#707070;font-family:sans-serif;display:inline-block;margin:12px;">获取图片列表</button>
 </div>
 <div id="main">
-
 	<div id="mosaic-slideshow">
         <div class="arrow left"></div>
         <div class="arrow right"></div>
     </div>
-
 </div>
+
+<div id="important">
+	<div id="mosaic-huadongshow">
+        <div class="jiantou zuo"></div>
+        <div class="jiantou you"></div>
+    </div>
+</div>
+
 <div id="power" style="text-align:center">
 <font style="color:white;font-size:20px;text-align:center"></font>
 </div>	
@@ -48,7 +57,9 @@
 	get_img_url='http://localhost:5000/get_img';
 
 	//图片超链接前缀
-	img_url_preious="http://localhost:5000/test/generated/";
+	img_url_original="http://localhost:5000/test/original/";
+	img_url_generated="http://localhost:5000/test/generated/"
+
 	var xhr=new XMLHttpRequest();
 	//这部分是负责上传图片
 	$(function(){
@@ -111,15 +122,18 @@
         		if(b){
         			//alert(b);
         			slides.splice(0,slides.length);
+        			slides2.splice(0,slides2.length)
         			var i=0;
         			//slides.push("./img/none.jpg")
         			while(i<b.length)
         			{
         				b[i]=b[i].replace('\"','').replace('\"',"").replace("\n","");
-        				slides.push(img_url_preious+b[i]);
+        				slides.push(img_url_original+b[i]);
+        				slides2.push(img_url_generated+b[i]);
         				i=i+1;
         			}
         			console.log(slides);
+        			console.log(slides2);
             		alert("获取成功！");      
         		}else{      
             		alert("获取失败！");      

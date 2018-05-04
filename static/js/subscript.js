@@ -1,31 +1,31 @@
 /* The slide images are contained in the slides array. */
-var slides = new Array('img/none.jpg');
+var slides2 = new Array('img/none.jpg');
 //
 $(document).ready(function(){
 	/* This code is executed after the DOM has been completely loaded */
 
-	$('.arrow.left').click(function(){
-		prev();
+	$('.jiantou.zuo').click(function(){
+		prev2();
 		
 		/* Clearing the autoadvance if we click one of the arrows */
 		clearInterval(auto);
 
 	});
 	
-	$('.arrow.right').click(function(){
-		next();
+	$('.jiantou.you').click(function(){
+		next2();
 		clearInterval(auto);
 	});
 
 	/* Preloading all the slide images: */
 
-	for(var i=0;i<slides.length;i++)
+	for(var i=0;i<slides2.length;i++)
 	{
-		(new Image()).src=slides[i];
+		(new Image()).src=slides2[i];
 	}
 	
 	/* Shoing the first one on page load: */
-	transition(1);
+	transition2(1);
 	
 	
 	/* Setting auto-advance every 10 seconds */
@@ -33,66 +33,66 @@ $(document).ready(function(){
 	var auto;
 	
 	auto=setInterval(function(){
-		next();
+		next2();
 	},10*1000);
 });
 
-var current = {};
-function transition(id)
+var current2 = {};
+function transition2(id)
 {
 	/* This function shows the individual slide. */
 	
-	if(!slides[id-1]) return false;
+	if(!slides2[id-1]) return false;
 	
-	if(current.id)
+	if(current2.id)
 	{
 		/* If the slide we want to show is currently shown: */
-		if(current.id == id) return false;
+		if(current2.id == id) return false;
 		
 		/* Moving the current slide layer to the top: */
-		current.layer.css('z-index',10);
+		current2.layer.css('z-index',10);
 		
 		/* Removing all other slide layers that are positioned below */
-		$('.mosaic-slide').not(current.layer).remove();
+		$('.mosaic-huadong').not(current2.layer).remove();
 	}
 	
 	/* Creating a new slide and filling it with generateGrid: */
-	var newLayer = $('<div class="mosaic-slide">').html(generateGrid({rows:7,cols:8,image:slides[id-1]}));
+	var newLayer = $('<div class="mosaic-huadong">').html(generateGrid2({rows:7,cols:8,image:slides2[id-1]}));
 
 	/* Moving it behind the current slide: */
 	newLayer.css('z-index',1);
 
-	$('#mosaic-slideshow').append(newLayer);
+	$('#mosaic-huadongshow').append(newLayer);
 	
-	if(current.layer)
+	if(current2.layer)
 	{
 		/* Hiding each tile of the current slide, exposing the new slide: */
-		$('.tile',current.layer).each(function(i){
-			var tile = $(this);
+		$('.tile2',current2.layer).each(function(i){
+			var tile2 = $(this);
 			setTimeout(function(){
-				tile.css('visibility','hidden');
+				tile2.css('visibility','hidden');
 			},i*10);
 		})
 	}
 	
 	/* Adding the current id and newLayer element to the current object: */
-	current.id = id;
-	current.layer = newLayer;
+	current2.id = id;
+	current2.layer = newLayer;
 }
 
-function next()
+function next2()
 {
-	if(current.id)
+	if(current2.id)
 	{
-		transition(current.id%slides.length+1);
+		transition2(current2.id%slides2.length+1);
 	}
 }
 
-function prev()
+function prev2()
 {
-	if(current.id)
+	if(current2.id)
 	{
-		transition((current.id+(slides.length-2))%slides.length+1);
+		transition2((current2.id+(slides2.length-2))%slides2.length+1);
 	}
 	
 }
@@ -100,7 +100,7 @@ function prev()
 /* Width and height of the tiles in pixels: */
 var tabwidth=60, tabheight=60;
 
-function generateGrid(param)
+function generateGrid2(param)
 {
 	/* This function generates the tile grid, with each tile containing a part of the slide image */
 	
@@ -112,7 +112,7 @@ function generateGrid(param)
 		for(var j=0;j<param.cols;j++)
 		{
 			tmp = $('<div>', {
-					"class":"tile",
+					"class":"tile2",
 					"css":{
 						"background":'#555 url('+param.image+') no-repeat '+(-j*tabwidth)+'px '+(-i*tabheight)+'px'
 					}
@@ -123,7 +123,7 @@ function generateGrid(param)
 		}
 		
 		/* Adding a clearing element at the end of each line. This will clearly divide the divs into rows: */
-		elem = elem.add('<div class="clear"></div>');
+		elem = elem.add('<div class="clear2"></div>');
 	}
 	
 	return elem;
