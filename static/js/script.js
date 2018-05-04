@@ -1,7 +1,7 @@
 
 /* The slide images are contained in the slides array. */
-var slides = new Array("img/none.jpg");
-
+var slides = new Array('img/none.jpg');
+//
 $(document).ready(function(){
 	/* This code is executed after the DOM has been completely loaded */
 
@@ -10,6 +10,7 @@ $(document).ready(function(){
 		
 		/* Clearing the autoadvance if we click one of the arrows */
 		clearInterval(auto);
+
 	});
 	
 	$('.arrow.right').click(function(){

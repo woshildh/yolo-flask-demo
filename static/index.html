@@ -41,13 +41,14 @@
 <div id="power" style="text-align:center">
 <font style="color:white;font-size:20px;text-align:center"></font>
 </div>	
-	<script type="text/javascript">
-	convert_url='http://localhost:5000/convert'
-	clear_url='http://localhost:5000/clear'
-	get_img_url='http://localhost:5000/get_img'
+
+<script type="text/javascript">
+	convert_url='http://localhost:5000/convert';
+	clear_url='http://localhost:5000/clear';
+	get_img_url='http://localhost:5000/get_img';
 
 	//图片超链接前缀
-	img_url_preious="/test/generated/"
+	img_url_preious="http://localhost:5000/test/generated/";
 	var xhr=new XMLHttpRequest();
 	//这部分是负责上传图片
 	$(function(){
@@ -100,6 +101,7 @@
 	//这部分用来获取图片列表,并且把它放到slides里面
 	$("#btn_get_img").click(function()
 	{
+		//alert(slides.length)
 		alert("get img list");
 		var formData=new FormData();
 		formData.append("command","get_img");
@@ -107,18 +109,17 @@
 			if(xhr.readyState == 4 && xhr.status == 200){      
         		var b = xhr.responseText.split(";");      
         		if(b){
-        			console.log(b);
-        			slides=new Array();
+        			//alert(b);
+        			slides.splice(0,slides.length);
         			var i=0;
         			//slides.push("./img/none.jpg")
         			while(i<b.length)
         			{
-        				b[i]=b[i].replace('\"','');
+        				b[i]=b[i].replace('\"','').replace('\"',"").replace("\n","");
         				slides.push(img_url_preious+b[i]);
-        				console.log(b[i]);
         				i=i+1;
         			}
-        			console.log(slides.length);
+        			console.log(slides);
             		alert("获取成功！");      
         		}else{      
             		alert("获取失败！");      
@@ -128,6 +129,7 @@
 		xhr.open("POST",get_img_url,true);
 		xhr.send(formData);
 	});
+	
 </script>
 
 </body>
